@@ -2,6 +2,7 @@ package db
 
 import (
 	"fmt"
+	"log"
 	"myresto/internals/domain"
 
 	"gorm.io/gorm"
@@ -16,6 +17,7 @@ func AutoMigrateModels(db *gorm.DB) error {
 		return fmt.Errorf("migrations failed due to : %w", err)
 	}
 
+	log.Println("Automigration successful...")
 	return nil
 
 }
