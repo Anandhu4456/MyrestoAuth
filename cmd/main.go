@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"myresto/internals/db"
+	"myresto/internals/router"
 	"myresto/pkg/cfg"
 )
 
@@ -21,4 +22,12 @@ func main() {
 	if err := db.AutoMigrateModels(gdb); err != nil {
 		log.Fatalf("migration failed : %v", err)
 	}
+
+	engine := router.RouteHandler(gdb)
+
+	if err := engine.Run(":8080"); err != nil {
+		log.Fatalf("server failed due to : %v", err)
+	}
+
+	log.Println("Myresto Authentication Server running on Port : 8080")
 }
