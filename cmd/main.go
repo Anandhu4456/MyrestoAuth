@@ -35,9 +35,9 @@ func main() {
 
 	engine := router.RouteHandler(gdb, smtpConfig, conf)
 
-	if err := engine.Run(":8080"); err != nil {
+	if err := engine.Run(":" + conf.PORT); err != nil {
 		log.Fatalf("server failed due to : %v", err)
 	}
 
-	log.Println("Myresto Authentication Server running on Port : 8080")
+	log.Println("Myresto Authentication Server running on Port : " + conf.PORT)
 }

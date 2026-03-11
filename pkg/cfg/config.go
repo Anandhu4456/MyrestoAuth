@@ -23,6 +23,8 @@ type Config struct {
 	JWTRefreshExpiryDays  int
 	JWTRefreshSecret      string
 
+	PORT string
+
 	SMTPHost        string
 	SMTPPort        int
 	SMTPEmail       string
@@ -47,6 +49,8 @@ func LoadConfig() (*Config, error) {
 		DBPassword: env("DB_PASSWORD", ""),
 		DBName:     env("DB_NAME", "myrestodb"),
 		DBSSLMode:  env("DB_SSLMODE", "disable"),
+
+		PORT: env("PORT", "8080"),
 
 		JWTAccessExpiryMinute: getEnvAsInt("JWT_ACCESS_EXPIRY_MINUTE", 15),
 		JWTAccessSecret:       env("JWT_ACCESS_SECRET", ""),
