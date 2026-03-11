@@ -11,12 +11,12 @@ import (
 type Config struct {
 	BaseURL string
 
-	DBHost     string
-	DBPort     string
-	DBUser     string
-	DBPassword string
-	DBName     string
-	DBSSLMode  string
+	// DBHost     string
+	// DBPort     string
+	// DBUser     string
+	// DBPassword string
+	// DBName     string
+	// DBSSLMode  string
 
 	JWTAccessExpiryMinute int
 	JWTAccessSecret       string
@@ -43,12 +43,12 @@ func LoadConfig() (*Config, error) {
 
 		BaseURL: env("BASE_URL", "https://myrestotody.com"),
 
-		DBHost:     env("DB_HOST", "localhost"),
-		DBPort:     env("DB_PORT", "5432"),
-		DBUser:     env("DB_USER", "postgres"),
-		DBPassword: env("DB_PASSWORD", ""),
-		DBName:     env("DB_NAME", "myrestodb"),
-		DBSSLMode:  env("DB_SSLMODE", "disable"),
+		// DBHost:     env("DB_HOST", "db.cjfwlylvlrfmufgpwmud.supabase.co"),
+		// DBPort:     env("DB_PORT", "5432"),
+		// DBUser:     env("DB_USER", "postgres"),
+		// DBPassword: env("DB_PASSWORD", "nfSN54JbKVwat3"),
+		// DBName:     env("DB_NAME", "postgres"),
+		// DBSSLMode:  env("DB_SSLMODE", "require"),
 
 		PORT: env("PORT", "8080"),
 
