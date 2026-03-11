@@ -35,6 +35,7 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 
 func (r *UserRepoImpl) SignUp(ctx context.Context, req *dto.SignupRequest) (*domain.User, error) {
 	user := &domain.User{
+		ID: uuid.New(),
 		RestaurantName: req.RestaurantName,
 		Username:       req.Username,
 		Email:          req.Email,

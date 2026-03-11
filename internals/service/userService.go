@@ -95,10 +95,6 @@ func (s *UserServiceImpl) VerifyEmail(ctx context.Context, token string) error {
 		return err
 	}
 
-	if err := s.userRepo.DeleteVerificationToken(ctx, token); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -115,6 +111,10 @@ func (s *UserServiceImpl) SetPassword(ctx context.Context, req dto.SetPasswordRe
 	}
 
 	if err := s.userRepo.UpdatePassword(ctx, vtoken.UserID, string(hash)); err != nil {
+		return err
+	}
+
+	if err := s.userRepo.DeleteVerificationToken(ctx, req.Token); err != nil {
 		return err
 	}
 

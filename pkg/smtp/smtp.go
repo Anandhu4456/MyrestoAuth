@@ -28,7 +28,7 @@ func NewSMTPService(smtpc SMTPConfig) *SMTPService {
 
 func (s *SMTPService) SendVerificationEmail(to, restaurantName, token string) error {
 
-	link := fmt.Sprintf("%s/verify-email?token=%s", s.smtpC.BaseURL, token)
+	link := fmt.Sprintf("%s/api/users/verify-email?token=%s", s.smtpC.BaseURL, token)
 
 	body, err := render(verificationTmpl, map[string]string{
 		"RestaurantName": restaurantName,
