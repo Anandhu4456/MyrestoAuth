@@ -10,6 +10,8 @@ import (
 )
 
 type Config struct {
+	BaseURL string
+
 	DBHost     string
 	DBPort     string
 	DBUser     string
@@ -21,6 +23,14 @@ type Config struct {
 	JWTAccessSecret       string
 	JWTRefreshExpiryDays  int
 	JWTRefreshSecret      string
+
+	SMTPHost        string
+	SMTPPort        int
+	SMTPEmail       string
+	SMTPAppPassword string
+	EmailFromName   string
+
+	VerificationTokenExpiryHours int
 }
 
 func LoadConfig() (*Config, error) {
@@ -29,6 +39,9 @@ func LoadConfig() (*Config, error) {
 	}
 
 	cfg := &Config{
+
+		BaseURL: env("BASE_URL", "https://myrestotody.com"),
+
 		DBHost:     env("DB_HOST", "localhost"),
 		DBPort:     env("DB_PORT", "5432"),
 		DBUser:     env("DB_USER", "postgres"),
@@ -40,6 +53,14 @@ func LoadConfig() (*Config, error) {
 		JWTAccessSecret:       env("JWT_ACCESS_SECRET", ""),
 		JWTRefreshExpiryDays:  getEnvAsInt("JWT_REFRESH_EXPIRY_DAYS", 7),
 		JWTRefreshSecret:      env("JWT_REFRESH_SECRET", ""),
+
+		SMTPHost:        env("SMTP_HOST", "smtp.gmail.com"),
+		SMTPPort:        getEnvAsInt("SMTP_PORT", 587),
+		SMTPEmail:       env("SMTP_EMAIL", ""),
+		SMTPAppPassword: env("SMTP_APP_PASSWORD", ""),
+		EmailFromName:   env("EMAIL_FROM_NAME", "MyRestoToday"),
+
+		VerificationTokenExpiryHours: getEnvAsInt("VERIFICATION_TOKEN_EXPIRY_HOURS", 24),
 	}
 	return cfg, nil
 }

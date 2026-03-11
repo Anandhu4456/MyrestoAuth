@@ -5,12 +5,13 @@ import (
 	"myresto/internals/db"
 	"myresto/internals/router"
 	"myresto/pkg/cfg"
+	"myresto/pkg/smtp"
 )
 
 func main() {
 	conf, err := cfg.LoadConfig()
 	if err != nil {
-		log.Fatalf( "config loading error : %v", err)
+		log.Fatalf("config loading error : %v", err)
 	}
 	gdb, sqlDB, err := db.NewPsqlDB(conf)
 	if err != nil {
@@ -23,7 +24,16 @@ func main() {
 		log.Fatalf("migration failed : %v", err)
 	}
 
-	engine := router.RouteHandler(gdb)
+	smtpConfig := smtp.SMTPConfig{
+		Host:        conf.SMTPHost,
+		Port:        conf.SMTPPort,
+		SenderEmail: conf.SMTPEmail,
+		AppPassword: conf.SMTPAppPassword,
+		FromName:    conf.EmailFromName,
+		BaseURL:     conf.BaseURL,
+	}
+
+	engine := router.RouteHandler(gdb, smtpConfig, conf)
 
 	if err := engine.Run(":8080"); err != nil {
 		log.Fatalf("server failed due to : %v", err)

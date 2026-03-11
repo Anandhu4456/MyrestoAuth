@@ -1,6 +1,10 @@
 package dto
 
-import "github.com/google/uuid"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type SignupRequest struct {
 	RestaurantName string `json:"restaurant_name" binding:"required,min=2,max=255"`
@@ -27,6 +31,11 @@ type TokenResponse struct {
 	RefreshToken string `json:"refresh_token"`
 }
 
+type RefreshTokenResponse struct {
+	AccessToken string    `json:"access_token"`
+	ExpiresAt   time.Time `json:"expires_at"`
+}
+
 type VerifyEmailResponse struct {
 	Token          string `json:"token"`
 	RestaurantName string `json:"restaurant_name"`
@@ -35,8 +44,8 @@ type VerifyEmailResponse struct {
 
 type UserResponse struct {
 	ID             uuid.UUID `json:"id"`
-	RestaurantName string `json:"restaurant_name"`
-	Username       string `json:"username"`
-	Email          string `json:"email"`
-	EmailVerified  bool   `json:"email_verified"`
+	RestaurantName string    `json:"restaurant_name"`
+	Username       string    `json:"username"`
+	Email          string    `json:"email"`
+	EmailVerified  bool      `json:"email_verified"`
 }
