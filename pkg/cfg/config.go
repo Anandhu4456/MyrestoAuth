@@ -1,7 +1,6 @@
 package cfg
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -34,8 +33,8 @@ type Config struct {
 }
 
 func LoadConfig() (*Config, error) {
-	if err := godotenv.Load(); err != nil {
-		return nil, fmt.Errorf("env file loading failed due to : %w", err)
+	if err := godotenv.Load(".env"); err != nil {
+		log.Printf("env file loading failed due to : %v", err)
 	}
 
 	cfg := &Config{
