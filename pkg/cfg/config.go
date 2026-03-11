@@ -69,7 +69,7 @@ func LoadConfig() (*Config, error) {
 }
 
 func env(key, fallback string) string {
-	if v, ok := os.LookupEnv(key); ok {
+	if v := os.Getenv(key); v != "" {
 		return v
 	}
 
@@ -77,7 +77,7 @@ func env(key, fallback string) string {
 }
 
 func getEnvAsInt(key string, fallback int) int {
-	if v, ok := os.LookupEnv(key); ok {
+	if v := os.Getenv(key); v != "" {
 		envInt, err := strconv.Atoi(v)
 		if err != nil {
 			log.Printf("Invalid value for %s, using default: %d", key, fallback)
