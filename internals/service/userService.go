@@ -58,15 +58,17 @@ func (s *UserServiceImpl) SignUp(ctx context.Context, req dto.SignupRequest) (*d
 	}
 
 	// send verificaton email
-	if err := s.smtp.SendVerificationEmail(
-		user.Email,
-		user.RestaurantName,
-		token,
-	); err != nil {
-		return nil, fmt.Errorf("failed to send verification email : %w", err)
-	}
-
-	log.Println("Verfication Email Send Successfully..")
+	go func() {
+		if err := s.smtp.SendVerificationEmail(
+			user.Email,
+			user.RestaurantName,
+			token,
+		); err != nil {
+			log.Println("failed to send verification email:", err)
+			return
+		}
+		log.Println("Verfication Email Send Successfully..")
+	}()
 
 	signUpResp := &dto.UserResponse{
 		ID:             user.ID,
